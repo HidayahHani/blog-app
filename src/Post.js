@@ -30,6 +30,11 @@ const Post = () => {
     getPost()
       .then((res) => res.json())
       .then((data) => {
+        if (data.message === "Resource not found") {
+          setIsError(true);
+          setIsLoading(false);
+          return;
+        }
         setPost(data);
         setUserId(data.user_id);
         setTitle(data.title);
@@ -37,6 +42,7 @@ const Post = () => {
         setIsLoading(false);
       })
       .catch((err) => {
+        console.log("There is an error");
         console.error(err);
         setIsError(true);
         setIsLoading(false);
@@ -108,6 +114,7 @@ const Post = () => {
       navigate("/");
     });
   };
+
   return (
     <>
       {isError ? <div>Post not found</div> : null}
@@ -125,7 +132,7 @@ const Post = () => {
             </>
           )}
 
-          {!isEdit && (
+          {!isEdit && !isError && (
             <>
               <button onClick={handleEdit}>Edit</button>
               <button onClick={handleDeletePost}>Delete</button>

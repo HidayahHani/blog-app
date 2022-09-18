@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const getPosts = () => {
     return fetch("https://gorest.co.in/public/v2/posts", {
@@ -28,8 +29,23 @@ const Posts = () => {
       .catch((err) => {
         console.log(err);
         setIsLoading(false);
+        if (err.response.status === 500) {
+          setErrorMessage(
+            "Internal server error. This could be caused by internal program errors."
+          );
+        } else if (err.response.status === 401) {
+          setErrorMessage("Authentication failed.");
+        } else if (err.response.status === 400) {
+          setErrorMessage(
+            "Bad request. This could be caused by various actions by the user, such as providing invalid JSON data in the request body etc."
+          );
+        }
       });
   }, []);
+
+  if (errorMessage) {
+    return <div>{errorMessage}</div>;
+  }
 
   return isLoading ? (
     <div>Loading...</div>

@@ -22,7 +22,13 @@ const NewPost = () => {
       },
     })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((json) => {
+        setUserId("");
+        setTitle("");
+        setBody("");
+        alert("Post has been successfully created!");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
