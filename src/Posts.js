@@ -51,15 +51,28 @@ const Posts = () => {
     <div>Loading...</div>
   ) : (
     <>
+      <h1 className="text-center font-sans text-2xl md:text-4xl lg:text-6xl font-extrabold">
+        All Posts
+      </h1>
       <Link to={"/newpost"}>
-        <button>Write a new post</button>
+        <button className="bg-pink-400 px-4 py-2 text-white rounded-md absolute top-0 right-0 mt-6 mr-4">
+          Write a new post
+        </button>
       </Link>
+      <br />
+      <br />
       {posts.map((post) => {
         return (
-          <div>
-            <Link to={`/${post.id}`}>{post.title}</Link>
-            <div>{post.body}</div>
-            <div>Authored by user id {post.user_id} </div>
+          <div className="border border-pink-200 text-lg bg-pink-100 mb-5 shadow-inner">
+            <Link to={`/${post.id}`}>
+              <div className="text-base md:text-lg lg:text-2xl font-bold underline">
+                {post.title}
+              </div>
+            </Link>
+            <div className="text-sm md:text-base lg:text-xl">{post.body}</div>
+            <div className="text-sm md:text-base lg:text-xl font-bold">
+              Authored by user id {post.user_id}{" "}
+            </div>
             <br />
             <br />
           </div>

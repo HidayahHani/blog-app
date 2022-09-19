@@ -63,26 +63,42 @@ const Post = () => {
 
   const renderUpdateForm = () => {
     return (
-      <form>
-        <label>User ID: </label>
-        <input type="text" value={userId} readOnly />
-        <br />
-        <label>Title:</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => handleUpdateTitle(e.target.value)}
-        />
-        <br />
-        <label>Body:</label>
-        <input
-          type="text"
-          value={body}
-          onChange={(e) => handleUpdateBody(e.target.value)}
-        />
-        <br />
-        <button onClick={handleEditPost}>Update</button>
-      </form>
+      <>
+        <div>
+          <h1 className="text-center sm:text-xl md:text-2xl lg:text-3xl font-bold pt-16">
+            Edit Post
+          </h1>
+        </div>
+
+        <div className="flex justify-center items-center">
+          <form className="bg-pink-100 sm:w-48 md:w-60 lg:w-72 border border-pink-500 shadow-md rounded px-10 pt-6 pb-8 mb-4">
+            <label>User ID: </label>
+            <input type="text" value={userId} readOnly />
+            <br />
+            <label>Title:</label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => handleUpdateTitle(e.target.value)}
+            />
+            <br />
+            <label>Body:</label>
+            <input
+              type="text"
+              value={body}
+              onChange={(e) => handleUpdateBody(e.target.value)}
+            />
+            <br />
+            <br />
+            <button
+              className="bg-pink-400 px-4 py-2 text-white rounded-md"
+              onClick={handleEditPost}
+            >
+              Update
+            </button>
+          </form>
+        </div>
+      </>
     );
   };
 
@@ -122,20 +138,40 @@ const Post = () => {
         <div>Loading...</div>
       ) : (
         <div>
-          <Link to={"/"}>Back to home</Link>
+          <button className="bg-pink-400 px-4 py-2 text-white rounded-md absolute top-0 right-0 mt-6 mr-4">
+            <Link to={"/"}>Back to home</Link>
+          </button>
           {isEdit ? (
             renderUpdateForm()
           ) : (
             <>
-              <h3>{post.title}</h3>
-              <div>{post.body}</div>
+              <h3 className="text-center sm:text-base md:text-2xl lg:text-4xl font-bold pt-16">
+                {post.title}
+              </h3>
+              <br />
+              <div className="text-center sm:text-base md:text-lg lg:text-xl">
+                {post.body}
+              </div>
+              <br />
             </>
           )}
 
           {!isEdit && !isError && (
             <>
-              <button onClick={handleEdit}>Edit</button>
-              <button onClick={handleDeletePost}>Delete</button>
+              <div className="flex justify-center items-center space-x-2">
+                <button
+                  className="bg-pink-400 px-4 py-2 text-white rounded-md"
+                  onClick={handleEdit}
+                >
+                  Edit
+                </button>
+                <button
+                  className="bg-pink-400 px-4 py-2 text-white rounded-md"
+                  onClick={handleDeletePost}
+                >
+                  Delete
+                </button>
+              </div>
             </>
           )}
         </div>
